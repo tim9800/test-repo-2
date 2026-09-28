@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>This is the home page!</h1>
+
+    <div>
+        <h3>Backend Response:</h3>
+        <p id="backend-data">Fetching from /home...</p>
+    </div>
+
+    <script>
+        fetch('http://localhost:8080/home')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('backend-data').textContent = data;
+            })
+            .catch(error => {
+                document.getElementById('backend-data').textContent = 'Error connecting to backend: ' + error.message;
+            });
+    </script>
+</body>
+</html>
